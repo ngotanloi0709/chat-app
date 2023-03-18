@@ -5,7 +5,7 @@
 
 /**
  *
- * @author NgoTnLoi
+ * @author NgoTanLoi
  */
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.util.ArrayList;
