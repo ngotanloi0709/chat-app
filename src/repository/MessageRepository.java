@@ -1,8 +1,5 @@
-/**
- *
- * @author NgTnLoi
- */
 package repository;
+
 import core.Database;
 import java.sql.*;
 import java.util.logging.Level;
@@ -12,7 +9,7 @@ import model.*;
 public class MessageRepository extends Repository <Message>{
     public MessageRepository() {
         this.table = "messages";
-        this.order = "username,content,date_created";
+        this.order = "username,content,`key`,date_created";
         this.key = "id";
 
     }
@@ -24,6 +21,7 @@ public class MessageRepository extends Repository <Message>{
                 data.getInt("id"),
                 data.getString("username"),
                 data.getString("content"),
+                    data.getString("key"),
                 data.getString("date_created")
             );
         } catch (SQLException e) {

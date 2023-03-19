@@ -13,20 +13,20 @@ import repository.Repository;
 import model.*;
 
 public class Login {
-    public static boolean LoginAuthorization (String username, String password) {
+    public static User LoginAuthorization (String username, String password) {
         try {
             Repository user_repository = new UserRepository();
-            User data = (User) user_repository.findByKey(username);
+            User user = (User) user_repository.findByKey(username);
             
-            if ((data.getUsername().compareTo(username)) == 0 &&
-                (data.getPassword().compareTo(password)) == 0) {
-                return true;
+            if ((user.getUsername().compareTo(username)) == 0 &&
+                (user.getPassword().compareTo(password)) == 0) {
+                return user;
             }
             
-            return false;
+            return null;
         } catch (Exception e){
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
