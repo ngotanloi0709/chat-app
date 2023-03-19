@@ -1,13 +1,8 @@
-/**
- *
- * @author NgTnLoi
- */
 package repository;
 
 import core.Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.chrono.ThaiBuddhistEra;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;

@@ -1,86 +1,86 @@
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
-import java.io.*;
+package controller;
 
-public class Client {
+import java.util.concurrent.ArrayBlockingQueue;
+import java.net.Socket;
+import java.io.*;
+import model.*;
+import repository.*;
+
+public class Client implements Runnable {
+    public ArrayBlockingQueue blockingQueue_send = new ArrayBlockingQueue<Message>(100);
+    public ArrayBlockingQueue blockingQueue_receive = new ArrayBlockingQueue<String>(100);
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-    private String username;
+    public String username;
 
-    public Client (Socket socket , String username) {
+    public Client(String username) {
         try {
-            this.socket = socket;
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.username = username;
-        } catch (IOException e) {
-            closeEverything(socket , bufferedReader ,  bufferedWriter);
+            new Thread(this).start();
+        } catch (Exception e) {
+            close(socket, bufferedReader,  bufferedWriter);
         }
     }
-
-    public void sendMessage() {
+    
+    public void run() {
+        try {
+            this.socket = new Socket("localhost" , 1234);
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            receive();
+            send();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void send() {
         try {
             bufferedWriter.write(username);
             bufferedWriter.newLine();
             bufferedWriter.flush();
-
-            Scanner scanner = new Scanner(System.in);
-            while (socket.isConnected()) {
-                String messageToSend = scanner.nextLine();
-                bufferedWriter.write(username +": " + messageToSend);
+            
+            Repository repository = new MessageRepository();
+            
+            while (socket.isConnected()) {    
+                Message message = (Message) blockingQueue_send.take();
+                repository.create(message);
+                
+                bufferedWriter.write(message.messageShow());
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
         } catch (IOException e) {
-            closeEverything(socket , bufferedReader ,  bufferedWriter);
+            close(socket, bufferedReader,  bufferedWriter);
+        } catch (InterruptedException e) {
+            close(socket, bufferedReader,  bufferedWriter);
         }
     }
 
-    public void listenForMessage() {
+    public void receive() {
         new Thread(new Runnable() {
-            @Override
             public void run() {
-                String msgFromGroupChat;
-
                 while (socket.isConnected()) {
                     try {
-                        msgFromGroupChat = bufferedReader.readLine();
-                        System.out.println(msgFromGroupChat);
+                        blockingQueue_receive.put(bufferedReader.readLine());
                     } catch (IOException e) {
-                        closeEverything(socket , bufferedReader ,  bufferedWriter);
+                        close(socket, bufferedReader,  bufferedWriter);
+                    } catch (InterruptedException e) {
+                        close(socket, bufferedReader,  bufferedWriter);
                     }
                 }
             }
         }).start();
     }
 
-    public void closeEverything(Socket socket , BufferedReader bufferedReader , BufferedWriter bufferedWriter) {
-
+    public static void close(Socket socket , BufferedReader bufferedReader , BufferedWriter bufferedWriter) {
         try {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
-            if (bufferedWriter != null) {
-                bufferedWriter.close();
-            }
-            if (socket != null) {
-                socket.close();
-            }
+            if (bufferedReader != null) bufferedReader.close();
+            if (bufferedWriter != null) bufferedWriter.close();
+            if (socket != null) socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) throws UnknownHostException, IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your username for the group chat: ");
-        String username = scanner.nextLine();
-        Socket socket = new Socket("localhost" , 1234);
-        Client client = new Client(socket , username);
-        client.listenForMessage();
-        client.sendMessage();
-        
     }
 }

@@ -1,14 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-/**
- *
- * @author NgTnLoi
- */
 import controller.*;
+import model.*;
+import javax.swing.SwingUtilities;
 
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -111,9 +105,15 @@ public class LoginFrame extends javax.swing.JFrame {
     private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
         // TODO add your handling code here:
         try {
-            if (Login.LoginAuthorization(input_username.getText(), input_password.getText())) {
-                result.setText("Login Successfully");
+            User user = Login.LoginAuthorization(input_username.getText(), input_password.getText());
+            
+            if (user != null) {
+                setVisible(false);
+                SwingUtilities.invokeLater(() -> new MainFrame(new Client(user.getUsername())));
+//                result.setText("Login Successfully");
             }
+            
+            result.setText("Wrong username or password!");
         } catch (Exception e){
             result.setText("Unknown Error");
         }
