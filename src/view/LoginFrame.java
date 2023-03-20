@@ -54,34 +54,36 @@ public class LoginFrame extends javax.swing.JFrame {
 
         button_register.setText("Register");
 
+        result.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        result.setText("Login or Register to continue");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
+                .addGap(92, 92, 92)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label_username)
                     .addComponent(label_password))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(button_register)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(button_login))
+                        .addComponent(input_username)
+                        .addComponent(input_password))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(result)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(button_register)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                .addComponent(button_login))
-                            .addComponent(input_username)
-                            .addComponent(input_password))
-                        .addGap(109, 109, 109))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(114, 114, 114))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(287, Short.MAX_VALUE)
+                .addContainerGap(252, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_username)
                     .addComponent(input_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -89,13 +91,13 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_password)
                     .addComponent(input_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(9, 9, 9)
+                .addComponent(result)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button_login)
                     .addComponent(button_register))
-                .addGap(18, 18, 18)
-                .addComponent(result)
-                .addGap(81, 81, 81))
+                .addGap(122, 122, 122))
         );
 
         pack();
@@ -105,15 +107,19 @@ public class LoginFrame extends javax.swing.JFrame {
     private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
         // TODO add your handling code here:
         try {
-            User user = Login.LoginAuthorization(input_username.getText(), input_password.getText());
+            if (input_username.getText().equals("") || input_password.getText().equals("")) {
+                result.setText("Username or Password is missing?");
+            } else {
+                User user = Login.LoginAuthorization(input_username.getText(), input_password.getText());
             
-            if (user != null) {
-                setVisible(false);
-                SwingUtilities.invokeLater(() -> new MainFrame(new Client(user.getUsername())));
-//                result.setText("Login Successfully");
+                if (user != null) {
+                    result.setText("Login Successfully");
+                    setVisible(false);
+                    SwingUtilities.invokeLater(() -> new MainFrame(new Client(user.getUsername())));
+                }
+            
+                result.setText("Wrong Username or Password!");
             }
-            
-            result.setText("Wrong username or password!");
         } catch (Exception e){
             result.setText("Unknown Error");
         }
@@ -147,12 +153,6 @@ public class LoginFrame extends javax.swing.JFrame {
 //        //</editor-fold>
 //        //</editor-fold>
 //
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new LoginFrame().setVisible(true);
-//            }
-//        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -8,10 +8,11 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form Chat
      */
     public MainFrame(Client client) {
-        this.setTitle(client.username);
         this.client = client;
         initComponents();
         receive();
+        this.setTitle(client.username);
+        this.userIdentify.setText("You are Logged as:\n" + client.username);
         setVisible(true);
     }
     
@@ -26,8 +27,8 @@ public class MainFrame extends javax.swing.JFrame {
                     }
                 }
             }
-    }).start();
-}
+        }).start();
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,12 +40,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         tab = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        chat_tab = new javax.swing.JPanel();
         javax.swing.JScrollPane ScrollPanel = new javax.swing.JScrollPane();
         table = new javax.swing.JTextArea();
         enter = new javax.swing.JButton();
         input = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        key = new javax.swing.JTextField();
+        userIdentify = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 500));
@@ -53,8 +55,8 @@ public class MainFrame extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setOpaque(false);
+        chat_tab.setBackground(new java.awt.Color(0, 0, 0));
+        chat_tab.setOpaque(false);
 
         table.setEditable(false);
         table.setColumns(20);
@@ -68,38 +70,44 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("KEY");
+        key.setText("KEY");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        userIdentify.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        userIdentify.setText("You are Logged as:");
+
+        javax.swing.GroupLayout chat_tabLayout = new javax.swing.GroupLayout(chat_tab);
+        chat_tab.setLayout(chat_tabLayout);
+        chat_tabLayout.setHorizontalGroup(
+            chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chat_tabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(chat_tabLayout.createSequentialGroup()
                         .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(enter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(key, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userIdentify, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+        chat_tabLayout.setVerticalGroup(
+            chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chat_tabLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(userIdentify)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(enter))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
-        tab.addTab("Chat", jPanel1);
+        tab.addTab("Chat", chat_tab);
 
         getContentPane().add(tab, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, -39, -1, 540));
 
@@ -110,10 +118,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
         // TODO add your handling code here:
         Message message = new Message(client.username, input.getText(), "Some key");
-        table.append(message.messageShow() + "\n");
         
         try {
-            client.blockingQueue_send.put(message);
+            if (client.socket != null && !client.socket.isClosed()) {
+                table.append(message.messageShow() + "\n");
+                client.blockingQueue_send.put(message);
+            } else {
+                table.append("Can't send the message. Server is offline\n");
+            }
             input.setText("");
         } catch (InterruptedException e) {
         }
@@ -151,11 +163,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel chat_tab;
     private javax.swing.JButton enter;
     private javax.swing.JTextField input;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField key;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JTextArea table;
+    private javax.swing.JLabel userIdentify;
     // End of variables declaration//GEN-END:variables
 }
