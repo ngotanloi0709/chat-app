@@ -2,7 +2,7 @@ package model;
 
 public class Message extends Model {
     private int id = -1;
-    private String username = "Unknown";
+    private String username = "";
     private String content = "";
     private String key = "";
 

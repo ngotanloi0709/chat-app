@@ -1,7 +1,3 @@
-/**
- *
- * @author NgTnLoi
- */
 package core;
 
 import java.sql.*;
@@ -35,9 +31,11 @@ public class Database {
             Statement statement = this.connection.createStatement();
             data = statement.executeQuery(query);
             result.set(1, data);
+            System.out.println("Query Execution Successful");
         } catch (SQLException e) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
             result.set(0, true);
+            System.out.println("Query Execution Failed");
         }
         
         return result;
@@ -47,9 +45,12 @@ public class Database {
         try {
             Statement statement = this.connection.createStatement();
             statement.executeUpdate(query);
+            System.out.println("Update Execution Successful");
+            
             return true;
         } catch (SQLException e) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Update Execution Failed");
             return false;
         }
     }

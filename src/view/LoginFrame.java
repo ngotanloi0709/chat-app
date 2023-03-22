@@ -1,15 +1,17 @@
 package view;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import controller.*;
 import model.*;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 public class LoginFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainFrame
      */
-    public LoginFrame() {
+    public LoginFrame() {      
         initComponents();
         setVisible(true);
     }
@@ -35,16 +37,23 @@ public class LoginFrame extends javax.swing.JFrame {
         setTitle("Login");
         setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(500, 500));
-        setMinimumSize(new java.awt.Dimension(500, 500));
+        setMaximumSize(new java.awt.Dimension(494, 248));
+        setMinimumSize(new java.awt.Dimension(494, 248));
         setName("MainFrame"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(494, 248));
         setResizable(false);
-        setSize(new java.awt.Dimension(500, 500));
+        setSize(new java.awt.Dimension(494, 248));
 
+        label_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        label_username.setForeground(new java.awt.Color(255, 255, 255));
         label_username.setText("Username");
 
+        label_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        label_password.setForeground(new java.awt.Color(255, 255, 255));
         label_password.setText("Password");
 
+        button_login.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        button_login.setForeground(new java.awt.Color(255, 255, 255));
         button_login.setText("Login");
         button_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,9 +61,18 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        input_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        input_password.setForeground(new java.awt.Color(255, 255, 255));
+
+        input_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        input_username.setForeground(new java.awt.Color(255, 255, 255));
+
+        button_register.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        button_register.setForeground(new java.awt.Color(255, 255, 255));
         button_register.setText("Register");
 
-        result.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        result.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        result.setForeground(new java.awt.Color(255, 255, 255));
         result.setText("Login or Register to continue");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -62,28 +80,30 @@ public class LoginFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_username)
-                    .addComponent(label_password))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(button_register)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(button_login))
-                        .addComponent(input_username)
-                        .addComponent(input_password))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(result)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(114, 114, 114))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_username)
+                            .addComponent(label_password))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 75, Short.MAX_VALUE)
+                                .addComponent(button_register)
+                                .addGap(26, 26, 26)
+                                .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(input_username)
+                            .addComponent(input_password))
+                        .addGap(87, 87, 87))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(252, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_username)
                     .addComponent(input_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -94,10 +114,10 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addComponent(result)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_login)
                     .addComponent(button_register))
-                .addGap(122, 122, 122))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,12 +130,12 @@ public class LoginFrame extends javax.swing.JFrame {
             if (input_username.getText().equals("") || input_password.getText().equals("")) {
                 result.setText("Username or Password is missing?");
             } else {
-                User user = Login.LoginAuthorization(input_username.getText(), input_password.getText());
+                User user = UserController.LoginAuthorization(input_username.getText(), input_password.getText());
             
                 if (user != null) {
                     result.setText("Login Successfully");
                     setVisible(false);
-                    SwingUtilities.invokeLater(() -> new MainFrame(new Client(user.getUsername())));
+                    SwingUtilities.invokeLater(() -> new MainFrame(new Client(user.getUsername()), user.getRole()));
                 }
             
                 result.setText("Wrong Username or Password!");

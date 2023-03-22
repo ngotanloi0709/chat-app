@@ -1,18 +1,5 @@
 package model;
 
-import java.time.LocalDateTime;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author NgTnLoi
- */
-
-
 public class User extends Model {
     private String username = "Not Set";
     private String password = "Not Set";

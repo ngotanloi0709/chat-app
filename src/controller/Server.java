@@ -7,12 +7,14 @@ import javax.swing.SwingUtilities;
 import view.*;
 
 public class Server implements Runnable {
-    private ServerSocket serverSocket = new ServerSocket(1234);
+    private static ServerSocket serverSocket;
 
     public Server() throws IOException {
+        serverSocket = new ServerSocket(1234);
         new Thread(this).start();
         System.out.println("Server is on!");
-        SwingUtilities.invokeLater(() -> new MainFrame(new Client("Server")));
+        
+        SwingUtilities.invokeLater(() -> new MainFrame(new Client("Server"), true));
     }
 
     public void run() {
@@ -20,7 +22,7 @@ public class Server implements Runnable {
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected");
-                new Thread(new ClientHandler(socket)).start();
+                new Thread(new ClientController(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
