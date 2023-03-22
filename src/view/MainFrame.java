@@ -1,18 +1,35 @@
 package view;
+
 import controller.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import model.*;
 
 public class MainFrame extends javax.swing.JFrame {
     public Client client;
-    /**
-     * Creates new form Chat
-     */
-    public MainFrame(Client client) {
+
+    public MainFrame(Client client, boolean role) {
         this.client = client;
         initComponents();
+        
+        if (!role) {
+            ActionListener[] listeners = btn_sw_management.getActionListeners();
+            btn_sw_management.removeActionListener(listeners[0]);
+            dl_access_warning.setLocationRelativeTo(null);
+            btn_sw_management.addActionListener(new ActionListener() {
+            @Override
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    dl_access_warning.setVisible(true);
+                }
+            });
+        }
+        
+        
         receive();
         this.setTitle(client.username);
-        this.userIdentify.setText("You are Logged as:\n" + client.username);
+        this.lb_user_identify.setText("You are Logged as: " + client.username);
+        btn_get_users.doClick();
         setVisible(true);
     }
     
@@ -21,7 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
             public void run() {
                 while (true) {
                     try {
-                        table.append(client.blockingQueue_receive.take() + "\n");
+                        ta_chat_log.append(client.blockingQueue_receive.take() + "\n");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -39,14 +56,87 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dl_access_warning = new javax.swing.JDialog();
+        lb_info_warning = new javax.swing.JLabel();
+        btn_close_dialog = new javax.swing.JButton();
         tab = new javax.swing.JTabbedPane();
-        chat_tab = new javax.swing.JPanel();
-        javax.swing.JScrollPane ScrollPanel = new javax.swing.JScrollPane();
-        table = new javax.swing.JTextArea();
-        enter = new javax.swing.JButton();
-        input = new javax.swing.JTextField();
-        key = new javax.swing.JTextField();
-        userIdentify = new javax.swing.JLabel();
+        tab_chat = new javax.swing.JPanel();
+        javax.swing.JScrollPane chat_log = new javax.swing.JScrollPane();
+        ta_chat_log = new javax.swing.JTextArea();
+        btn_send = new javax.swing.JButton();
+        tf_input = new javax.swing.JTextField();
+        tf_key = new javax.swing.JTextField();
+        lb_user_identify = new javax.swing.JLabel();
+        javax.swing.JLabel lb_key = new javax.swing.JLabel();
+        tab_management = new javax.swing.JPanel();
+        table = new javax.swing.JScrollPane();
+        tb_data = new javax.swing.JTable();
+        btn_get_users = new javax.swing.JButton();
+        btn_add_user = new javax.swing.JToggleButton();
+        tf_info_username = new javax.swing.JTextField();
+        tf_info_password = new javax.swing.JTextField();
+        tf_info_role = new javax.swing.JTextField();
+        tf_info_name = new javax.swing.JTextField();
+        tf_info_phone_number = new javax.swing.JTextField();
+        tf_info_email = new javax.swing.JTextField();
+        javax.swing.JLabel lb_info_username = new javax.swing.JLabel();
+        lb_info_name = new javax.swing.JLabel();
+        lb_info_role = new javax.swing.JLabel();
+        lb_info_password = new javax.swing.JLabel();
+        lb_info_email = new javax.swing.JLabel();
+        lb_info_phone = new javax.swing.JLabel();
+        btn_delete_user = new javax.swing.JButton();
+        btn_edit_user = new javax.swing.JButton();
+        btn_clear_chat_db = new javax.swing.JButton();
+        lb_query_result = new javax.swing.JLabel();
+        btn_sw_management = new javax.swing.JButton();
+        btn_sw_chat = new javax.swing.JButton();
+        btn_clear_chat_log = new javax.swing.JButton();
+        btn_show_chat_log = new javax.swing.JButton();
+        javax.swing.JLabel lb_background = new javax.swing.JLabel();
+
+        dl_access_warning.setTitle("Warning");
+        dl_access_warning.setMinimumSize(new java.awt.Dimension(324, 126));
+        dl_access_warning.setResizable(false);
+        dl_access_warning.setSize(new java.awt.Dimension(324, 126));
+
+        lb_info_warning.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_info_warning.setForeground(new java.awt.Color(255, 255, 255));
+        lb_info_warning.setLabelFor(dl_access_warning);
+        lb_info_warning.setText("You dont have access to Managemen Tag");
+        lb_info_warning.setToolTipText("");
+
+        btn_close_dialog.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_close_dialog.setForeground(new java.awt.Color(255, 255, 255));
+        btn_close_dialog.setText("Close");
+        btn_close_dialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_close_dialogActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dl_access_warningLayout = new javax.swing.GroupLayout(dl_access_warning.getContentPane());
+        dl_access_warning.getContentPane().setLayout(dl_access_warningLayout);
+        dl_access_warningLayout.setHorizontalGroup(
+            dl_access_warningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dl_access_warningLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(lb_info_warning, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dl_access_warningLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_close_dialog)
+                .addGap(16, 16, 16))
+        );
+        dl_access_warningLayout.setVerticalGroup(
+            dl_access_warningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dl_access_warningLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lb_info_warning, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_close_dialog)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 500));
@@ -55,82 +145,484 @@ public class MainFrame extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        chat_tab.setBackground(new java.awt.Color(0, 0, 0));
-        chat_tab.setOpaque(false);
+        tab_chat.setBackground(new java.awt.Color(0, 0, 0));
+        tab_chat.setOpaque(false);
 
-        table.setEditable(false);
-        table.setColumns(20);
-        table.setRows(5);
-        ScrollPanel.setViewportView(table);
+        ta_chat_log.setEditable(false);
+        ta_chat_log.setBackground(new java.awt.Color(51, 51, 51));
+        ta_chat_log.setColumns(20);
+        ta_chat_log.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        ta_chat_log.setRows(5);
+        ta_chat_log.setBorder(null);
+        chat_log.setViewportView(ta_chat_log);
 
-        enter.setText("enter");
-        enter.addActionListener(new java.awt.event.ActionListener() {
+        btn_send.setText("Gửi");
+        btn_send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterActionPerformed(evt);
+                btn_sendActionPerformed(evt);
             }
         });
 
-        key.setText("KEY");
+        tf_input.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        tf_input.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_inputKeyPressed(evt);
+            }
+        });
 
-        userIdentify.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        userIdentify.setText("You are Logged as:");
+        tf_key.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
 
-        javax.swing.GroupLayout chat_tabLayout = new javax.swing.GroupLayout(chat_tab);
-        chat_tab.setLayout(chat_tabLayout);
-        chat_tabLayout.setHorizontalGroup(
-            chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(chat_tabLayout.createSequentialGroup()
+        lb_user_identify.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        lb_user_identify.setForeground(new java.awt.Color(255, 255, 255));
+        lb_user_identify.setText("You are Logged as:");
+
+        lb_key.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_key.setForeground(new java.awt.Color(255, 255, 255));
+        lb_key.setText("Key:");
+
+        javax.swing.GroupLayout tab_chatLayout = new javax.swing.GroupLayout(tab_chat);
+        tab_chat.setLayout(tab_chatLayout);
+        tab_chatLayout.setHorizontalGroup(
+            tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_chatLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(chat_tabLayout.createSequentialGroup()
-                        .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(enter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(key, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userIdentify, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(tab_chatLayout.createSequentialGroup()
+                        .addComponent(tf_input, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_send, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lb_user_identify, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chat_log, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_chatLayout.createSequentialGroup()
+                        .addComponent(lb_key)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_key, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
-        chat_tabLayout.setVerticalGroup(
-            chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chat_tabLayout.createSequentialGroup()
+        tab_chatLayout.setVerticalGroup(
+            tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_chatLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(userIdentify)
+                .addComponent(lb_user_identify)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chat_log, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_key))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(chat_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enter))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tf_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_send))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
-        tab.addTab("Chat", chat_tab);
+        tab.addTab("Chat", tab_chat);
+
+        tab_management.setOpaque(false);
+
+        tb_data.setFont(new java.awt.Font("JetBrains Mono", 1, 10)); // NOI18N
+        tb_data.setForeground(new java.awt.Color(255, 255, 255));
+        tb_data.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tb_data.getTableHeader().setReorderingAllowed(false);
+        tb_data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_dataMouseClicked(evt);
+            }
+        });
+        table.setViewportView(tb_data);
+
+        btn_get_users.setForeground(new java.awt.Color(255, 255, 255));
+        btn_get_users.setText("Reload table");
+        btn_get_users.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_get_usersActionPerformed(evt);
+            }
+        });
+
+        btn_add_user.setForeground(new java.awt.Color(255, 255, 255));
+        btn_add_user.setText("Add User");
+        btn_add_user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_add_userActionPerformed(evt);
+            }
+        });
+
+        tf_info_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+
+        tf_info_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+
+        tf_info_role.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+
+        tf_info_name.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        tf_info_name.setMinimumSize(new java.awt.Dimension(32, 23));
+
+        tf_info_phone_number.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+
+        tf_info_email.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+
+        lb_info_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_info_username.setForeground(new java.awt.Color(255, 255, 255));
+        lb_info_username.setText("Username:");
+
+        lb_info_name.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_info_name.setForeground(new java.awt.Color(255, 255, 255));
+        lb_info_name.setText("Name:");
+
+        lb_info_role.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_info_role.setForeground(new java.awt.Color(255, 255, 255));
+        lb_info_role.setText("Role:");
+
+        lb_info_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_info_password.setForeground(new java.awt.Color(255, 255, 255));
+        lb_info_password.setText("Password:");
+
+        lb_info_email.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_info_email.setForeground(new java.awt.Color(255, 255, 255));
+        lb_info_email.setText("Email:");
+
+        lb_info_phone.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_info_phone.setForeground(new java.awt.Color(255, 255, 255));
+        lb_info_phone.setText("Phone number:");
+
+        btn_delete_user.setForeground(new java.awt.Color(255, 255, 255));
+        btn_delete_user.setText("Delete User");
+        btn_delete_user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_delete_userActionPerformed(evt);
+            }
+        });
+
+        btn_edit_user.setForeground(new java.awt.Color(255, 255, 255));
+        btn_edit_user.setText("Edit User");
+        btn_edit_user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_edit_userActionPerformed(evt);
+            }
+        });
+
+        btn_clear_chat_db.setForeground(new java.awt.Color(255, 255, 255));
+        btn_clear_chat_db.setText("Clear Chat History");
+        btn_clear_chat_db.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clear_chat_dbActionPerformed(evt);
+            }
+        });
+
+        lb_query_result.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        lb_query_result.setForeground(new java.awt.Color(255, 255, 255));
+        lb_query_result.setText("Get Users Successfully");
+
+        javax.swing.GroupLayout tab_managementLayout = new javax.swing.GroupLayout(tab_management);
+        tab_management.setLayout(tab_managementLayout);
+        tab_managementLayout.setHorizontalGroup(
+            tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_managementLayout.createSequentialGroup()
+                .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tab_managementLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(tab_managementLayout.createSequentialGroup()
+                                    .addComponent(lb_info_username)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tf_info_username, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(tab_managementLayout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(tab_managementLayout.createSequentialGroup()
+                                            .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(tab_managementLayout.createSequentialGroup()
+                                                    .addComponent(lb_info_role)
+                                                    .addGap(33, 33, 33)
+                                                    .addComponent(tf_info_role))
+                                                .addGroup(tab_managementLayout.createSequentialGroup()
+                                                    .addComponent(lb_info_password)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(tf_info_password, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(tab_managementLayout.createSequentialGroup()
+                                                        .addComponent(lb_info_email)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(tf_info_email, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(tab_managementLayout.createSequentialGroup()
+                                                        .addComponent(lb_info_name)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(tf_info_name, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(tab_managementLayout.createSequentialGroup()
+                                                    .addComponent(lb_info_phone)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(tf_info_phone_number))))
+                                        .addGroup(tab_managementLayout.createSequentialGroup()
+                                            .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(btn_get_users, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btn_add_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(btn_clear_chat_db, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(tab_managementLayout.createSequentialGroup()
+                                                    .addComponent(btn_delete_user, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(btn_edit_user, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                        .addComponent(table, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_query_result))
+                .addGap(0, 123, Short.MAX_VALUE))
+        );
+        tab_managementLayout.setVerticalGroup(
+            tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_managementLayout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab_managementLayout.createSequentialGroup()
+                        .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_info_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_info_username))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_info_password)
+                            .addComponent(tf_info_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lb_info_role)
+                            .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tf_info_role, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lb_info_phone)
+                                .addComponent(tf_info_phone_number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(tab_managementLayout.createSequentialGroup()
+                        .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_info_name)
+                            .addComponent(tf_info_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_info_email)
+                            .addComponent(tf_info_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_add_user)
+                    .addComponent(btn_delete_user)
+                    .addComponent(btn_edit_user))
+                .addGap(18, 18, 18)
+                .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_get_users)
+                    .addComponent(btn_clear_chat_db))
+                .addGap(18, 18, 18)
+                .addComponent(table, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lb_query_result)
+                .addGap(48, 48, 48))
+        );
+
+        tab.addTab("Management", tab_management);
 
         getContentPane().add(tab, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, -39, -1, 540));
+
+        btn_sw_management.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_sw_management.setForeground(new java.awt.Color(255, 255, 255));
+        btn_sw_management.setText("Management");
+        btn_sw_management.setBorderPainted(false);
+        btn_sw_management.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sw_managementActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_sw_management, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, 50));
+
+        btn_sw_chat.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_sw_chat.setForeground(new java.awt.Color(255, 255, 255));
+        btn_sw_chat.setText("Chat Room");
+        btn_sw_chat.setBorderPainted(false);
+        btn_sw_chat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sw_chatActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_sw_chat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 140, 50));
+
+        btn_clear_chat_log.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_clear_chat_log.setForeground(new java.awt.Color(255, 255, 255));
+        btn_clear_chat_log.setText("Clear Chat Log");
+        btn_clear_chat_log.setBorderPainted(false);
+        btn_clear_chat_log.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clear_chat_logActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_clear_chat_log, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 140, 50));
+
+        btn_show_chat_log.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_show_chat_log.setForeground(new java.awt.Color(255, 255, 255));
+        btn_show_chat_log.setText("Show Chat Log");
+        btn_show_chat_log.setOpaque(true);
+        btn_show_chat_log.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_show_chat_logActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_show_chat_log, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 140, 50));
+
+        lb_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/milad-fakurian-iLHDO19h0ng-unsplash.jpg"))); // NOI18N
+        getContentPane().add(lb_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
+    private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
         // TODO add your handling code here:
-        Message message = new Message(client.username, input.getText(), "Some key");
+        Message message = new Message(client.username, tf_input.getText(), "Some key");
         
         try {
             if (client.socket != null && !client.socket.isClosed()) {
-                table.append(message.messageShow() + "\n");
+                ta_chat_log.append(message.messageShow() + "\n");
                 client.blockingQueue_send.put(message);
             } else {
-                table.append("Can't send the message. Server is offline\n");
+                ta_chat_log.append("Can't send the message. Server is offline\n");
             }
-            input.setText("");
+            
+            tf_input.setText("");
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-    }//GEN-LAST:event_enterActionPerformed
+    }//GEN-LAST:event_btn_sendActionPerformed
 
+    private void btn_sw_chatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sw_chatActionPerformed
+        // TODO add your handling code here:
+        tab.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_sw_chatActionPerformed
+
+    private void btn_sw_managementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sw_managementActionPerformed
+        // TODO add your handling code here:
+        tab.setSelectedIndex(1);
+    }//GEN-LAST:event_btn_sw_managementActionPerformed
+
+    private void btn_get_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_get_usersActionPerformed
+        // TODO add your handling code here:
+        try {
+            this.tb_data.setModel(UserController.getUsersTable());
+            lb_query_result.setText("Get Users Successfully!");
+        } catch (Exception e) {
+            lb_query_result.setText("Cant get Users! Unkown Error!");
+        }
+    }//GEN-LAST:event_btn_get_usersActionPerformed
+
+    private void tb_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_dataMouseClicked
+        // TODO add your handling code here:
+        int row = tb_data.getSelectedRow();
+        
+        try {
+            tf_info_username.setText(tb_data.getModel().getValueAt(row, 0).toString());
+            tf_info_password.setText(tb_data.getModel().getValueAt(row, 1).toString());
+            tf_info_role.setText(tb_data.getModel().getValueAt(row, 2).toString());
+            tf_info_name.setText(tb_data.getModel().getValueAt(row, 3).toString());
+            tf_info_email.setText(tb_data.getModel().getValueAt(row, 4).toString());
+            tf_info_phone_number.setText(tb_data.getModel().getValueAt(row, 5).toString());
+        } catch (Exception e) {
+            lb_query_result.setText("Cant get record information! Unkown Error!");
+        }
+    }//GEN-LAST:event_tb_dataMouseClicked
+
+    private void btn_show_chat_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_show_chat_logActionPerformed
+        // TODO add your handling code here:
+        try {
+            ArrayList <String> data = MessageController.getMessages();
+            ta_chat_log.setText("");
+            
+            for (String message : data) {
+                ta_chat_log.append(message + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ta_chat_log.append("Cant load the chat log! Unknown Error!");
+        }
+    }//GEN-LAST:event_btn_show_chat_logActionPerformed
+
+    private void btn_clear_chat_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clear_chat_logActionPerformed
+        // TODO add your handling code here:
+        ta_chat_log.setText("");
+        ta_chat_log.append("Chat Log has been clear!");
+    }//GEN-LAST:event_btn_clear_chat_logActionPerformed
+
+    private void tf_inputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_inputKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btn_send.doClick();
+        }
+    }//GEN-LAST:event_tf_inputKeyPressed
+
+    private void btn_add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_userActionPerformed
+        // TODO add your handling code here:
+        if (UserController.createUser(
+            tf_info_username.getText(), 
+            tf_info_password.getText(), 
+            Boolean.parseBoolean(tf_info_role.getText()), 
+            tf_info_name.getText(), 
+            tf_info_email.getText(), 
+            tf_info_phone_number.getText())) {
+            btn_get_users.doClick();
+            lb_query_result.setText("Add Users Successfully!");
+        } else {
+            lb_query_result.setText("Cant add user! Unkown Error!");
+        }
+    }//GEN-LAST:event_btn_add_userActionPerformed
+
+    private void btn_delete_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delete_userActionPerformed
+        // TODO add your handling code here:
+        if (UserController.isOnline(tf_info_username.getText())) {
+            lb_query_result.setText("Cant delete '" + tf_info_username.getText() +"' because it is online!");
+        } else if (tf_info_username.getText().equals("Server")) {
+            lb_query_result.setText("Cant delete Server!");
+        } else if (!UserController.isExist(tf_info_username.getText())) {
+            lb_query_result.setText("Cant find '" + tf_info_username.getText() +"' to delete!");
+        } else if (UserController.removeUser(tf_info_username.getText())){
+            btn_get_users.doClick();
+            lb_query_result.setText("Delete Users Successfully!");
+        } else {
+            lb_query_result.setText("Cant delete user! Unkown Error!");
+        }
+    }//GEN-LAST:event_btn_delete_userActionPerformed
+
+    private void btn_edit_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit_userActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        if (UserController.removeUser(tf_info_username.getText())) {
+            UserController.createUser(
+            tf_info_username.getText(), 
+            tf_info_password.getText(), 
+            Boolean.parseBoolean(tf_info_role.getText()), 
+            tf_info_name.getText(), 
+            tf_info_email.getText(), 
+            tf_info_phone_number.getText());
+                    
+            btn_get_users.doClick();
+            lb_query_result.setText("Edit Users Successfully!");
+        } else {
+            lb_query_result.setText("Cant edit user! Unkown Error!");
+        }
+    }//GEN-LAST:event_btn_edit_userActionPerformed
+
+    private void btn_clear_chat_dbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clear_chat_dbActionPerformed
+        // TODO add your handling code here:
+        if (MessageController.deleteMessages()) {
+            lb_query_result.setText("Delete all messages successfully");
+        } else {
+            lb_query_result.setText("Cant delete all messages! Unkown Error!");
+        }
+    }//GEN-LAST:event_btn_clear_chat_dbActionPerformed
+
+    private void btn_close_dialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_close_dialogActionPerformed
+        // TODO add your handling code here:
+        dl_access_warning.setVisible(false);
+    }//GEN-LAST:event_btn_close_dialogActionPerformed
+  
     /**
      * @param args the command line arguments
      */
@@ -163,12 +655,39 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel chat_tab;
-    private javax.swing.JButton enter;
-    private javax.swing.JTextField input;
-    private javax.swing.JTextField key;
+    private javax.swing.JToggleButton btn_add_user;
+    private javax.swing.JButton btn_clear_chat_db;
+    private javax.swing.JButton btn_clear_chat_log;
+    private javax.swing.JButton btn_close_dialog;
+    private javax.swing.JButton btn_delete_user;
+    private javax.swing.JButton btn_edit_user;
+    private javax.swing.JButton btn_get_users;
+    private javax.swing.JButton btn_send;
+    private javax.swing.JButton btn_show_chat_log;
+    private javax.swing.JButton btn_sw_chat;
+    private javax.swing.JButton btn_sw_management;
+    private javax.swing.JDialog dl_access_warning;
+    private javax.swing.JLabel lb_info_email;
+    private javax.swing.JLabel lb_info_name;
+    private javax.swing.JLabel lb_info_password;
+    private javax.swing.JLabel lb_info_phone;
+    private javax.swing.JLabel lb_info_role;
+    private javax.swing.JLabel lb_info_warning;
+    private javax.swing.JLabel lb_query_result;
+    private javax.swing.JLabel lb_user_identify;
+    private javax.swing.JTextArea ta_chat_log;
     private javax.swing.JTabbedPane tab;
-    private javax.swing.JTextArea table;
-    private javax.swing.JLabel userIdentify;
+    private javax.swing.JPanel tab_chat;
+    private javax.swing.JPanel tab_management;
+    private javax.swing.JScrollPane table;
+    private javax.swing.JTable tb_data;
+    private javax.swing.JTextField tf_info_email;
+    private javax.swing.JTextField tf_info_name;
+    private javax.swing.JTextField tf_info_password;
+    private javax.swing.JTextField tf_info_phone_number;
+    private javax.swing.JTextField tf_info_role;
+    private javax.swing.JTextField tf_info_username;
+    private javax.swing.JTextField tf_input;
+    private javax.swing.JTextField tf_key;
     // End of variables declaration//GEN-END:variables
 }

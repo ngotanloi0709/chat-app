@@ -7,10 +7,9 @@ public class ServerInitialize {
     public static void main(String[] args) throws IOException {
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
+            new Server();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        
-        new Server();
+        }   
     }
 }

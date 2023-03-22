@@ -68,4 +68,13 @@ public abstract class Repository <T> extends Database {
             return false;
         }
     }
+    
+    public boolean removeByKey(String value) {
+        try {
+            return this.executeUpdate("DELETE FROM " + table + " WHERE " + key + "='" + value + "'");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

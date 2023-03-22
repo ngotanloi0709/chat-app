@@ -7,28 +7,19 @@ import java.net.UnknownHostException;
 import model.*;
 import repository.*;
 
-public class Client implements Runnable {
+public class Client {
     public ArrayBlockingQueue blockingQueue_send = new ArrayBlockingQueue<Message>(100);
     public ArrayBlockingQueue blockingQueue_receive = new ArrayBlockingQueue<String>(100);
     public Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
     public String username;
+    public BufferedReader bufferedReader;
+    public BufferedWriter bufferedWriter;
 
     public Client(String username) {
         try {
             this.username = username;
-            new Thread(this).start();
-        } catch (Exception e) {
-            close(socket, bufferedReader,  bufferedWriter);
-        }
-    }
-    
-    public void run() {
-        try {
             findServer();
         } catch (Exception e) {
-            e.printStackTrace();
             close(socket, bufferedReader,  bufferedWriter);
         }
     }
@@ -39,13 +30,15 @@ public class Client implements Runnable {
                 while (true) {
                     try {
                         if (socket == null || socket.isClosed()) {
-
-                            socket = null;
-                            close(socket, bufferedReader,  bufferedWriter);
                             System.out.println("Try to find Server");
+                            close(socket, bufferedReader,  bufferedWriter);
+                            
+                            socket = null;
                             socket = new Socket("localhost" , 1234);
+                            
                             bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            
                             receive();
                             send();
                         } else {
