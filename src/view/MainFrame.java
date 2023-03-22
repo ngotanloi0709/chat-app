@@ -23,6 +23,10 @@ public class MainFrame extends javax.swing.JFrame {
                     dl_access_warning.setVisible(true);
                 }
             });
+            
+            btn_sw_chat.doClick();
+            btn_sw_management.setVisible(false);
+            btn_sw_chat.setVisible(false);
         }
         
         
@@ -156,7 +160,8 @@ public class MainFrame extends javax.swing.JFrame {
         ta_chat_log.setBorder(null);
         chat_log.setViewportView(ta_chat_log);
 
-        btn_send.setText("Gửi");
+        btn_send.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_send.setText("Send");
         btn_send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_sendActionPerformed(evt);
@@ -214,7 +219,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tf_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_send))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         tab.addTab("Chat", tab_chat);
@@ -239,6 +244,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         table.setViewportView(tb_data);
 
+        btn_get_users.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
         btn_get_users.setForeground(new java.awt.Color(255, 255, 255));
         btn_get_users.setText("Reload table");
         btn_get_users.addActionListener(new java.awt.event.ActionListener() {
@@ -247,6 +253,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_add_user.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
         btn_add_user.setForeground(new java.awt.Color(255, 255, 255));
         btn_add_user.setText("Add User");
         btn_add_user.addActionListener(new java.awt.event.ActionListener() {
@@ -292,6 +299,7 @@ public class MainFrame extends javax.swing.JFrame {
         lb_info_phone.setForeground(new java.awt.Color(255, 255, 255));
         lb_info_phone.setText("Phone number:");
 
+        btn_delete_user.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
         btn_delete_user.setForeground(new java.awt.Color(255, 255, 255));
         btn_delete_user.setText("Delete User");
         btn_delete_user.addActionListener(new java.awt.event.ActionListener() {
@@ -300,6 +308,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_edit_user.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
         btn_edit_user.setForeground(new java.awt.Color(255, 255, 255));
         btn_edit_user.setText("Edit User");
         btn_edit_user.addActionListener(new java.awt.event.ActionListener() {
@@ -308,6 +317,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_clear_chat_db.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
         btn_clear_chat_db.setForeground(new java.awt.Color(255, 255, 255));
         btn_clear_chat_db.setText("Clear Chat History");
         btn_clear_chat_db.addActionListener(new java.awt.event.ActionListener() {
@@ -368,11 +378,11 @@ public class MainFrame extends javax.swing.JFrame {
                                                 .addComponent(btn_add_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                             .addGap(18, 18, 18)
                                             .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(btn_clear_chat_db, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGroup(tab_managementLayout.createSequentialGroup()
-                                                    .addComponent(btn_delete_user, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(btn_delete_user, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(btn_edit_user, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                                    .addComponent(btn_edit_user, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(btn_clear_chat_db)))))))
                         .addComponent(table, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lb_query_result))
                 .addGap(0, 123, Short.MAX_VALUE))
@@ -380,7 +390,7 @@ public class MainFrame extends javax.swing.JFrame {
         tab_managementLayout.setVerticalGroup(
             tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_managementLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tab_managementLayout.createSequentialGroup()
                         .addGroup(tab_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
