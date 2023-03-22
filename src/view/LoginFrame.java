@@ -1,10 +1,8 @@
 package view;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import controller.*;
 import model.*;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -25,125 +23,290 @@ public class LoginFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.JLabel label_username = new javax.swing.JLabel();
-        javax.swing.JLabel label_password = new javax.swing.JLabel();
-        button_login = new javax.swing.JButton();
-        input_password = new javax.swing.JPasswordField();
-        input_username = new javax.swing.JTextField();
-        button_register = new javax.swing.JButton();
-        result = new javax.swing.JLabel();
+        tab = new javax.swing.JTabbedPane();
+        tab_login = new javax.swing.JPanel();
+        javax.swing.JLabel lb_login_username = new javax.swing.JLabel();
+        javax.swing.JLabel lb_login_password = new javax.swing.JLabel();
+        btn_login = new javax.swing.JButton();
+        tf_login_password = new javax.swing.JPasswordField();
+        tf_login_username = new javax.swing.JTextField();
+        btn_sw_register = new javax.swing.JButton();
+        lb_login_result = new javax.swing.JLabel();
+        tab_register = new javax.swing.JPanel();
+        tf_register_username = new javax.swing.JTextField();
+        tf_register_password = new javax.swing.JTextField();
+        tf_register_name = new javax.swing.JTextField();
+        tf_register_mail = new javax.swing.JTextField();
+        tf_register_phone_number = new javax.swing.JTextField();
+        javax.swing.JLabel lb_register_username = new javax.swing.JLabel();
+        javax.swing.JLabel lb_register_password = new javax.swing.JLabel();
+        javax.swing.JLabel lb_register_name = new javax.swing.JLabel();
+        javax.swing.JLabel lb_register_email = new javax.swing.JLabel();
+        javax.swing.JLabel lb_register_phone_number = new javax.swing.JLabel();
+        btn_register = new javax.swing.JButton();
+        btn_sw_login = new javax.swing.JButton();
+        lb_register_result = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(494, 248));
-        setMinimumSize(new java.awt.Dimension(494, 248));
+        setMaximumSize(new java.awt.Dimension(494, 219));
+        setMinimumSize(new java.awt.Dimension(494, 219));
         setName("MainFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(494, 248));
+        setPreferredSize(new java.awt.Dimension(494, 219));
         setResizable(false);
-        setSize(new java.awt.Dimension(494, 248));
+        setSize(new java.awt.Dimension(494, 219));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        label_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        label_username.setForeground(new java.awt.Color(255, 255, 255));
-        label_username.setText("Username");
+        tab.setMaximumSize(new java.awt.Dimension(494, 219));
+        tab.setMinimumSize(new java.awt.Dimension(494, 219));
+        tab.setPreferredSize(new java.awt.Dimension(494, 219));
 
-        label_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        label_password.setForeground(new java.awt.Color(255, 255, 255));
-        label_password.setText("Password");
+        lb_login_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_login_username.setForeground(new java.awt.Color(255, 255, 255));
+        lb_login_username.setText("Username");
 
-        button_login.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        button_login.setForeground(new java.awt.Color(255, 255, 255));
-        button_login.setText("Login");
-        button_login.addActionListener(new java.awt.event.ActionListener() {
+        lb_login_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_login_password.setForeground(new java.awt.Color(255, 255, 255));
+        lb_login_password.setText("Password");
+
+        btn_login.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_login.setForeground(new java.awt.Color(255, 255, 255));
+        btn_login.setText("Login");
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_loginActionPerformed(evt);
+                btn_loginActionPerformed(evt);
             }
         });
 
-        input_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        input_password.setForeground(new java.awt.Color(255, 255, 255));
+        tf_login_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        tf_login_password.setForeground(new java.awt.Color(255, 255, 255));
 
-        input_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        input_username.setForeground(new java.awt.Color(255, 255, 255));
+        tf_login_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        tf_login_username.setForeground(new java.awt.Color(255, 255, 255));
 
-        button_register.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        button_register.setForeground(new java.awt.Color(255, 255, 255));
-        button_register.setText("Register");
+        btn_sw_register.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_sw_register.setForeground(new java.awt.Color(255, 255, 255));
+        btn_sw_register.setText("Register");
+        btn_sw_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sw_registerActionPerformed(evt);
+            }
+        });
 
-        result.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        result.setForeground(new java.awt.Color(255, 255, 255));
-        result.setText("Login or Register to continue");
+        lb_login_result.setFont(new java.awt.Font("JetBrains Mono", 0, 10)); // NOI18N
+        lb_login_result.setForeground(new java.awt.Color(255, 255, 255));
+        lb_login_result.setText("Login or Register to continue");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(result)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_username)
-                            .addComponent(label_password))
+        javax.swing.GroupLayout tab_loginLayout = new javax.swing.GroupLayout(tab_login);
+        tab_login.setLayout(tab_loginLayout);
+        tab_loginLayout.setHorizontalGroup(
+            tab_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_loginLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(tab_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(tab_loginLayout.createSequentialGroup()
+                            .addComponent(lb_login_password)
+                            .addGap(18, 18, 18)
+                            .addComponent(tf_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(tab_loginLayout.createSequentialGroup()
+                            .addComponent(lb_login_username)
+                            .addGap(18, 18, 18)
+                            .addComponent(tf_login_username, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lb_login_result))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_loginLayout.createSequentialGroup()
+                        .addComponent(btn_sw_register)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 75, Short.MAX_VALUE)
-                                .addComponent(button_register)
-                                .addGap(26, 26, 26)
-                                .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(input_username)
-                            .addComponent(input_password))
-                        .addGap(87, 87, 87))))
+                        .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_username)
-                    .addComponent(input_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        tab_loginLayout.setVerticalGroup(
+            tab_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_loginLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(tab_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_login_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_login_username))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_password)
-                    .addComponent(input_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(result)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button_login)
-                    .addComponent(button_register))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGroup(tab_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_login_password))
+                .addGap(18, 18, 18)
+                .addComponent(lb_login_result)
+                .addGap(34, 34, 34)
+                .addGroup(tab_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_sw_register)
+                    .addComponent(btn_login))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        tab.addTab("Login", tab_login);
+
+        tab_register.setMaximumSize(new java.awt.Dimension(494, 219));
+        tab_register.setMinimumSize(new java.awt.Dimension(494, 219));
+        tab_register.setPreferredSize(new java.awt.Dimension(494, 219));
+
+        lb_register_username.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_register_username.setText("Username:");
+
+        lb_register_password.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_register_password.setText("Password:");
+
+        lb_register_name.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_register_name.setText("Full Name:");
+
+        lb_register_email.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_register_email.setText("Email:");
+
+        lb_register_phone_number.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        lb_register_phone_number.setText("Phone Number:");
+
+        btn_register.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_register.setText("Register");
+        btn_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registerActionPerformed(evt);
+            }
+        });
+
+        btn_sw_login.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_sw_login.setText("Back");
+        btn_sw_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sw_loginActionPerformed(evt);
+            }
+        });
+
+        lb_register_result.setFont(new java.awt.Font("JetBrains Mono", 0, 10)); // NOI18N
+        lb_register_result.setForeground(new java.awt.Color(255, 255, 255));
+        lb_register_result.setText("Please fill the form");
+
+        javax.swing.GroupLayout tab_registerLayout = new javax.swing.GroupLayout(tab_register);
+        tab_register.setLayout(tab_registerLayout);
+        tab_registerLayout.setHorizontalGroup(
+            tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_registerLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_register_result)
+                    .addGroup(tab_registerLayout.createSequentialGroup()
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lb_register_username)
+                            .addComponent(lb_register_password))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_register_password, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(tf_register_username))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(tab_registerLayout.createSequentialGroup()
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lb_register_phone_number)
+                            .addComponent(btn_sw_login, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_register, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_register_phone_number, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(tab_registerLayout.createSequentialGroup()
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_registerLayout.createSequentialGroup()
+                                .addComponent(lb_register_name)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(tab_registerLayout.createSequentialGroup()
+                                .addComponent(lb_register_email)
+                                .addGap(35, 35, 35)))
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_register_name)
+                            .addComponent(tf_register_mail, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+        tab_registerLayout.setVerticalGroup(
+            tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_registerLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(tab_registerLayout.createSequentialGroup()
+                        .addComponent(tf_register_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_register_mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_register_email)))
+                    .addGroup(tab_registerLayout.createSequentialGroup()
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_register_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_register_username)
+                            .addComponent(lb_register_name))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_register_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_register_password))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_register_phone_number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_register_phone_number))
+                .addGap(32, 32, 32)
+                .addGroup(tab_registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_register)
+                    .addComponent(btn_sw_login)
+                    .addComponent(lb_register_result))
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        tab.addTab("Register", tab_register);
+
+        getContentPane().add(tab, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, -40, 500, 260));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         // TODO add your handling code here:
         try {
-            if (input_username.getText().equals("") || input_password.getText().equals("")) {
-                result.setText("Username or Password is missing?");
+            if (tf_login_username.getText().equals("") || tf_login_password.getText().equals("")) {
+                lb_login_result.setText("Username or Password is missing?");
             } else {
-                User user = UserController.LoginAuthorization(input_username.getText(), input_password.getText());
+                User user = UserController.LoginAuthorization(tf_login_username.getText(), tf_login_password.getText());
             
                 if (user != null) {
-                    result.setText("Login Successfully");
+                    lb_login_result.setText("Login Successfully");
                     setVisible(false);
                     SwingUtilities.invokeLater(() -> new MainFrame(new Client(user.getUsername()), user.getRole()));
                 }
             
-                result.setText("Wrong Username or Password!");
+                lb_login_result.setText("Wrong Username or Password!");
             }
         } catch (Exception e){
-            result.setText("Unknown Error");
+            lb_login_result.setText("Unknown Error");
         }
-    }//GEN-LAST:event_button_loginActionPerformed
+    }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void btn_sw_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sw_registerActionPerformed
+        // TODO add your handling code here:
+        tab.setSelectedIndex(1);
+    }//GEN-LAST:event_btn_sw_registerActionPerformed
+
+    private void btn_sw_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sw_loginActionPerformed
+        // TODO add your handling code here:
+        tab.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_sw_loginActionPerformed
+
+    private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registerActionPerformed
+        // TODO add your handling code here:        
+        if (tf_register_username.getText().equals("") || tf_register_username.getText().equals("")) {
+            lb_register_result.setText("Username or Password is Invalid");
+        } else if (UserController.createUser(tf_register_username.getText(), 
+                    tf_register_password.getText(), 
+                    false, 
+                    tf_register_name.getText(), tf_register_mail.getText(), 
+                    tf_register_phone_number.getText())) {
+            lb_register_result.setText("Please fill the form");
+            lb_login_result.setText("Register successfully. Please Login");
+            tab.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_btn_registerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,10 +339,21 @@ public class LoginFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_login;
-    private javax.swing.JButton button_register;
-    private javax.swing.JPasswordField input_password;
-    private javax.swing.JTextField input_username;
-    private javax.swing.JLabel result;
+    private javax.swing.JButton btn_login;
+    private javax.swing.JButton btn_register;
+    private javax.swing.JButton btn_sw_login;
+    private javax.swing.JButton btn_sw_register;
+    private javax.swing.JLabel lb_login_result;
+    private javax.swing.JLabel lb_register_result;
+    private javax.swing.JTabbedPane tab;
+    private javax.swing.JPanel tab_login;
+    private javax.swing.JPanel tab_register;
+    private javax.swing.JPasswordField tf_login_password;
+    private javax.swing.JTextField tf_login_username;
+    private javax.swing.JTextField tf_register_mail;
+    private javax.swing.JTextField tf_register_name;
+    private javax.swing.JTextField tf_register_password;
+    private javax.swing.JTextField tf_register_phone_number;
+    private javax.swing.JTextField tf_register_username;
     // End of variables declaration//GEN-END:variables
 }
