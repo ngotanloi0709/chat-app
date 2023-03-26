@@ -1,3 +1,5 @@
+package controller;
+
 import javax.crypto.*;
 import javax.crypto.spec.*;
 import java.security.SecureRandom;
@@ -19,8 +21,25 @@ public class AESEncryptor {
         return result;
     }
 
-    public static String encrypt(String data, String key) {
+    public static String keyNormalize(String key) {
         try {
+            String result = key.trim();
+            
+            if (result.length() > 16) {
+                result = result.substring(0, 16);
+            } else if (result.length() < 16) {
+                result = String.format("%-" + 16 + "s", result);
+            }
+            
+            return result;
+        } catch (Exception e) {
+            return key;
+        }
+    }
+    
+    public static String encrypt(String content, String key) {
+        try {
+            key = keyNormalize(key);
             byte[] iv = new byte[16];
             SecureRandom random = new SecureRandom();
             random.nextBytes(iv);
@@ -31,19 +50,18 @@ public class AESEncryptor {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec, ivSpec);
 
-            byte[] encrypted = cipher.doFinal(data.getBytes());
+            byte[] encrypted = cipher.doFinal(content.getBytes());
             return bytesToHex(iv) + bytesToHex(encrypted);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            return "Error: can not Encrypt";
         }
-
-        return "Error : can not Encrypt";
     }
 
-    public static String decrypt(String encrypted, String key) {
+    public static String decrypt(String content, String key) {
         try {
-            byte[] iv = hexToBytes(encrypted.substring(0, 32));
-            byte[] encryptedData = hexToBytes(encrypted.substring(32));
+            key = keyNormalize(key);
+            byte[] iv = hexToBytes(content.substring(0, 32));
+            byte[] encryptedData = hexToBytes(content.substring(32));
 
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
             IvParameterSpec ivSpec = new IvParameterSpec(iv);
@@ -54,9 +72,7 @@ public class AESEncryptor {
             byte[] original = cipher.doFinal(encryptedData);
             return new String(original);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            return "Error: can not Decrypt";
         }
-
-        return "Error : can not Decrypt";
     }    
 }

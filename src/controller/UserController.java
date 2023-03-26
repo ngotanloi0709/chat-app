@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import repository.*;
-import controller.*;
 import model.*;
 
 public class UserController {

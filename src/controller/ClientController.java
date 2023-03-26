@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.BasicStroke;
 import java.util.ArrayList;
 import java.net.Socket;
 import java.io.*;
@@ -92,24 +91,20 @@ public class ClientController implements Runnable {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    // get the file from storage
                     InputStream inputStream = socket.getInputStream();
                     DataInputStream dataInputStream = new DataInputStream(inputStream);
                     String fileName = dataInputStream.readUTF();
                     File file = new File(sourceFilePath + File.separator + fileName);
-
-                    // send the File's content
+                    
                     OutputStream outputStream = socket.getOutputStream();
                     FileInputStream fileInputStream = new FileInputStream(file);
                     byte[] buffer = new byte[1024*16];
                     int bytesRead = 0;
 
-
                     while ((bytesRead = fileInputStream.read(buffer)) > 0) {
                         outputStream.write(buffer, 0, bytesRead);
                     }
-
-                    // push every thing to the opposite side
+                    
                     outputStream.flush();
                 } catch (Exception e) {
                     close();
