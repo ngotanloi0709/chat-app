@@ -1,7 +1,6 @@
 package view;
 
 import controller.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
             public void run() {
                 while (true) {
                     try {
-                        ta_chat_log.append(client.blockingQueue_receive.take() + "\n");
+                        ta_chat_log.append(MessageController.messageDecrypt((String) client.blockingQueue_receive.take()) + "\n");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -535,7 +534,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
         // TODO add your handling code here:
-        Message message = new Message(client.username, tf_input.getText(), "Some key");
+        Message message = new Message(client.username, tf_input.getText(), tf_key.getText());
         
         try {
             if (client.socket != null && !client.socket.isClosed()) {
@@ -691,8 +690,6 @@ public class MainFrame extends javax.swing.JFrame {
                 ta_chat_log.append("Unknown errors! Cant send " + selectedFile.getName());
             }
         }
-        
-//        file_sender_client.close(file_sender_client.socket, file_sender_client.bufferedReader, file_sender_client.bufferedWriter);
     }//GEN-LAST:event_btn_uploadActionPerformed
 
     private void btn_downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_downloadActionPerformed

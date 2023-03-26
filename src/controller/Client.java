@@ -16,7 +16,6 @@ public class Client {
     public BufferedReader bufferedReader;
     public BufferedWriter bufferedWriter;
     
-    // Constructor for File Transfer Client
     public Client(int client_role) {
         try {
             this.client_role = client_role;
@@ -25,7 +24,6 @@ public class Client {
         }
     }
     
-    // Constructor for Chat Transfer Client
     public Client(String username) {
         try {
             this.client_role = 0;
@@ -36,7 +34,6 @@ public class Client {
         }
     }
     
-    // Depend on the client's role, it will find it's own Server Socket
     public void findServer() {
         new Thread(new Runnable() {
             public void run() {
@@ -48,14 +45,12 @@ public class Client {
                             close(socket, bufferedReader,  bufferedWriter);
                             socket = null;
                             
-                            // for chat Client
                             if (client_role == 0) {
                                 socket = new Socket("localhost" , 1111);
                                 bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                                 bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                                 receiveMessage();
                                 sendMessage();
-                            // for File Client
                             } else if (client_role == 1) {
                                 socket = new Socket("localhost" , 2222);
                             } else if (client_role == 2) {
@@ -92,9 +87,10 @@ public class Client {
 
                     while (socket != null) {    
                         Message message = (Message) blockingQueue_send.take();
+                        message.setContent(AESEncryptor.encrypt(message.getContent(), message.getKey()));
                         repository.create(message);
 
-                        bufferedWriter.write(message.messageShow());
+                        bufferedWriter.write(message.messageEncryptShow());
                         bufferedWriter.newLine();
                         bufferedWriter.flush();
                     }
@@ -125,14 +121,17 @@ public class Client {
     
     public boolean sendFile(File file) {
         try {
-            // create OutputStream to send the data
+            // Important
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+            }
+            
             OutputStream outputStream = socket.getOutputStream();
             
-            // create DataOutputStream to send the name of the file
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
             dataOutputStream.writeUTF(file.getName());
             
-            // send the File's content
             FileInputStream fileInputStream = new FileInputStream(file);
             byte[] buffer = new byte[1024*16];
             int bytesRead = 0;
@@ -141,7 +140,6 @@ public class Client {
                 outputStream.write(buffer, 0, bytesRead);
             }
             
-            // push every thing to the opposite side
             outputStream.flush();
             fileInputStream.close();
             
@@ -156,19 +154,18 @@ public class Client {
         new Thread(new Runnable() {
             public void run() {
                 try {
+                    // Important
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     } catch (Exception e) {
                     }
-                    // create OutputStream to send data
+                    
                     OutputStream outputStream = socket.getOutputStream();
-
-                    // create DataOutputStream to send the name of the file to server side
+                    
                     DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
                     dataOutputStream.writeUTF(fileName);
                     outputStream.flush();
                     
-                    // receive data from server side
                     InputStream inputStream = socket.getInputStream();
                     FileOutputStream fileOutputStream = new FileOutputStream(new File(destinationFilePath + File.separator + fileName));
                     byte[] buffer = new byte[1024*16];

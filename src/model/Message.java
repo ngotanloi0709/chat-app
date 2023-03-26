@@ -51,12 +51,16 @@ public class Message extends Model {
         return this.key;
     }
     
-    public void setKey(String content) {
+    public void setKey(String key) {
         this.key = key;
     }
     
     public String messageShow() {
-        return "> [" + date_created + "] " + username + ": " + content;
+        return "[" + date_created + "] " + username + ": " + content;
+    }
+    
+    public String messageEncryptShow() {
+        return "[" + date_created + "]---" + username + ":---" + content + "---" + key;
     }
     
     @Override
