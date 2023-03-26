@@ -3,41 +3,35 @@ package view;
 import controller.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import model.*;
 
 public class MainFrame extends javax.swing.JFrame {
     public Client client;
 
     public MainFrame(Client client, boolean role) {
-        this.client = client;
         initComponents();
         
         if (!role) {
-            ActionListener[] listeners = btn_sw_management.getActionListeners();
-            btn_sw_management.removeActionListener(listeners[0]);
-            dl_access_warning.setLocationRelativeTo(null);
-            btn_sw_management.addActionListener(new ActionListener() {
-            @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    dl_access_warning.setVisible(true);
-                }
-            });
-            
-            btn_sw_chat.doClick();
-            btn_sw_management.setVisible(false);
-            btn_sw_chat.setVisible(false);
+            tab.setEnabledAt(1, false);
+            this.btn_sw_chat.doClick();
+            this.btn_sw_management.setVisible(false);
+            this.btn_sw_chat.setVisible(false);
         }
         
         
-        receive();
+        this.client = client;
         this.setTitle(client.username);
+        this.dl_file_download.setLocationRelativeTo(null);
         this.lb_user_identify.setText("You are Logged as: " + client.username);
-        btn_get_users.doClick();
-        setVisible(true);
+        this.btn_get_users.doClick();
+        this.receiveMessage();
+        this.setVisible(true);
     }
     
-    public void receive() {
+    public void receiveMessage() {
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
@@ -60,9 +54,13 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dl_access_warning = new javax.swing.JDialog();
-        lb_info_warning = new javax.swing.JLabel();
-        btn_close_dialog = new javax.swing.JButton();
+        dl_file_download = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list_file_name = new javax.swing.JList<>();
+        btn_download_result = new javax.swing.JLabel();
+        tf_download_source = new javax.swing.JTextField();
+        btn_download_change_directory = new javax.swing.JButton();
+        btn_download_submit = new javax.swing.JButton();
         tab = new javax.swing.JTabbedPane();
         tab_chat = new javax.swing.JPanel();
         javax.swing.JScrollPane chat_log = new javax.swing.JScrollPane();
@@ -72,6 +70,8 @@ public class MainFrame extends javax.swing.JFrame {
         tf_key = new javax.swing.JTextField();
         lb_user_identify = new javax.swing.JLabel();
         javax.swing.JLabel lb_key = new javax.swing.JLabel();
+        btn_upload = new javax.swing.JButton();
+        btn_download = new javax.swing.JButton();
         tab_management = new javax.swing.JPanel();
         table = new javax.swing.JScrollPane();
         tb_data = new javax.swing.JTable();
@@ -99,47 +99,69 @@ public class MainFrame extends javax.swing.JFrame {
         btn_show_chat_log = new javax.swing.JButton();
         javax.swing.JLabel lb_background = new javax.swing.JLabel();
 
-        dl_access_warning.setTitle("Warning");
-        dl_access_warning.setMinimumSize(new java.awt.Dimension(324, 126));
-        dl_access_warning.setResizable(false);
-        dl_access_warning.setSize(new java.awt.Dimension(324, 126));
+        dl_file_download.setTitle("Download File");
+        dl_file_download.setMinimumSize(new java.awt.Dimension(423, 300));
+        dl_file_download.setResizable(false);
 
-        lb_info_warning.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        lb_info_warning.setForeground(new java.awt.Color(255, 255, 255));
-        lb_info_warning.setLabelFor(dl_access_warning);
-        lb_info_warning.setText("You dont have access to Managemen Tag");
-        lb_info_warning.setToolTipText("");
+        list_file_name.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        list_file_name.setForeground(new java.awt.Color(255, 255, 255));
+        list_file_name.setModel(StorageController.getFilesNameList());
+        list_file_name.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list_file_nameMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(list_file_name);
 
-        btn_close_dialog.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        btn_close_dialog.setForeground(new java.awt.Color(255, 255, 255));
-        btn_close_dialog.setText("Close");
-        btn_close_dialog.addActionListener(new java.awt.event.ActionListener() {
+        btn_download_result.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_download_result.setText("Please choose the File you want to download");
+
+        btn_download_change_directory.setText("Directory");
+        btn_download_change_directory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_close_dialogActionPerformed(evt);
+                btn_download_change_directoryActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout dl_access_warningLayout = new javax.swing.GroupLayout(dl_access_warning.getContentPane());
-        dl_access_warning.getContentPane().setLayout(dl_access_warningLayout);
-        dl_access_warningLayout.setHorizontalGroup(
-            dl_access_warningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dl_access_warningLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lb_info_warning, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dl_access_warningLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_close_dialog)
-                .addGap(16, 16, 16))
+        btn_download_submit.setText("Download");
+        btn_download_submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_download_submitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dl_file_downloadLayout = new javax.swing.GroupLayout(dl_file_download.getContentPane());
+        dl_file_download.getContentPane().setLayout(dl_file_downloadLayout);
+        dl_file_downloadLayout.setHorizontalGroup(
+            dl_file_downloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dl_file_downloadLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(dl_file_downloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tf_download_source, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_download_result)
+                    .addGroup(dl_file_downloadLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(dl_file_downloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_download_change_directory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_download_submit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
-        dl_access_warningLayout.setVerticalGroup(
-            dl_access_warningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dl_access_warningLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lb_info_warning, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+        dl_file_downloadLayout.setVerticalGroup(
+            dl_file_downloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dl_file_downloadLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(tf_download_source, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_close_dialog)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGroup(dl_file_downloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(dl_file_downloadLayout.createSequentialGroup()
+                        .addComponent(btn_download_change_directory)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_download_submit)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_download_result)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -185,23 +207,46 @@ public class MainFrame extends javax.swing.JFrame {
         lb_key.setForeground(new java.awt.Color(255, 255, 255));
         lb_key.setText("Key:");
 
+        btn_upload.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_upload.setText("Upload File");
+        btn_upload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_uploadActionPerformed(evt);
+            }
+        });
+
+        btn_download.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        btn_download.setText("Download File");
+        btn_download.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_downloadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout tab_chatLayout = new javax.swing.GroupLayout(tab_chat);
         tab_chat.setLayout(tab_chatLayout);
         tab_chatLayout.setHorizontalGroup(
             tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_chatLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tab_chatLayout.createSequentialGroup()
                         .addComponent(tf_input, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_send, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lb_user_identify, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chat_log, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_chatLayout.createSequentialGroup()
+                        .addComponent(btn_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_download)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lb_key)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_key, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tf_key, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(tab_chatLayout.createSequentialGroup()
+                        .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lb_user_identify, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chat_log, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(145, Short.MAX_VALUE))
         );
         tab_chatLayout.setVerticalGroup(
@@ -214,12 +259,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_key))
+                    .addComponent(lb_key)
+                    .addComponent(btn_upload)
+                    .addComponent(btn_download))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(tab_chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tf_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_send))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         tab.addTab("Chat", tab_chat);
@@ -602,8 +649,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btn_edit_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit_userActionPerformed
         // TODO add your handling code here:
-        // TODO add your handling code here:
-        if (UserController.removeUser(tf_info_username.getText())) {
+        if (!UserController.isExist(tf_info_username.getText())) {
+            lb_query_result.setText("Cant edit user! User not found!");
+        } else if (UserController.removeUser(tf_info_username.getText())) {
             UserController.createUser(
             tf_info_username.getText(), 
             tf_info_password.getText(), 
@@ -628,10 +676,68 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_clear_chat_dbActionPerformed
 
-    private void btn_close_dialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_close_dialogActionPerformed
+    private void btn_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uploadActionPerformed
+        Client file_sender_client = new Client(1);
+        
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this);
+        
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            
+            if (file_sender_client.sendFile(selectedFile)) {
+                ta_chat_log.append("File " + selectedFile.getName() + " is sent\n");
+            } else {
+                ta_chat_log.append("Unknown errors! Cant send " + selectedFile.getName());
+            }
+        }
+        
+//        file_sender_client.close(file_sender_client.socket, file_sender_client.bufferedReader, file_sender_client.bufferedWriter);
+    }//GEN-LAST:event_btn_uploadActionPerformed
+
+    private void btn_downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_downloadActionPerformed
         // TODO add your handling code here:
-        dl_access_warning.setVisible(false);
-    }//GEN-LAST:event_btn_close_dialogActionPerformed
+        list_file_name.setModel(StorageController.getFilesNameList());
+        btn_download_result.setText("Please choose the File you want to download");
+        dl_file_download.setVisible(true);
+    }//GEN-LAST:event_btn_downloadActionPerformed
+
+    private void list_file_nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_file_nameMouseClicked
+        // TODO add your handling code here:
+        String fileName = (String) list_file_name.getSelectedValue();
+        btn_download_result.setText("You are selecting " + fileName);
+    }//GEN-LAST:event_list_file_nameMouseClicked
+
+    private void btn_download_change_directoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_download_change_directoryActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = fileChooser.showOpenDialog(this);
+        
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFolder = fileChooser.getSelectedFile();
+            tf_download_source.setText(selectedFolder.getAbsolutePath());
+        }
+    }//GEN-LAST:event_btn_download_change_directoryActionPerformed
+
+    private void btn_download_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_download_submitActionPerformed
+        // TODO add your handling code here:
+        Client file_receiver_client = new Client(2);
+
+        try {
+            if (((String) list_file_name.getSelectedValue()).equals("")) {
+                // nothing - jump to catch
+            } else if (tf_download_source.getText().equals("")) {
+                btn_download_result.setText("Please choose directory of the download file");
+            } else {
+                file_receiver_client.receiveFile(tf_download_source.getText(), (String) list_file_name.getSelectedValue());
+            }
+        } catch (Exception e) {
+            btn_download_result.setText("Please choose the file you want to download");
+        }
+        
+
+    }//GEN-LAST:event_btn_download_submitActionPerformed
   
     /**
      * @param args the command line arguments
@@ -668,29 +774,35 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton btn_add_user;
     private javax.swing.JButton btn_clear_chat_db;
     private javax.swing.JButton btn_clear_chat_log;
-    private javax.swing.JButton btn_close_dialog;
     private javax.swing.JButton btn_delete_user;
+    private javax.swing.JButton btn_download;
+    private javax.swing.JButton btn_download_change_directory;
+    private javax.swing.JLabel btn_download_result;
+    private javax.swing.JButton btn_download_submit;
     private javax.swing.JButton btn_edit_user;
     private javax.swing.JButton btn_get_users;
     private javax.swing.JButton btn_send;
     private javax.swing.JButton btn_show_chat_log;
     private javax.swing.JButton btn_sw_chat;
     private javax.swing.JButton btn_sw_management;
-    private javax.swing.JDialog dl_access_warning;
+    private javax.swing.JButton btn_upload;
+    private javax.swing.JDialog dl_file_download;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_info_email;
     private javax.swing.JLabel lb_info_name;
     private javax.swing.JLabel lb_info_password;
     private javax.swing.JLabel lb_info_phone;
     private javax.swing.JLabel lb_info_role;
-    private javax.swing.JLabel lb_info_warning;
     private javax.swing.JLabel lb_query_result;
     private javax.swing.JLabel lb_user_identify;
+    private javax.swing.JList<String> list_file_name;
     private javax.swing.JTextArea ta_chat_log;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JPanel tab_chat;
     private javax.swing.JPanel tab_management;
     private javax.swing.JScrollPane table;
     private javax.swing.JTable tb_data;
+    private javax.swing.JTextField tf_download_source;
     private javax.swing.JTextField tf_info_email;
     private javax.swing.JTextField tf_info_name;
     private javax.swing.JTextField tf_info_password;

@@ -14,6 +14,7 @@ public class User extends Model {
     public User(String username, String password, boolean role, String name, String email, String phoneNumber, String date_created) {
         this.username = username;
         this.password = password;
+        this.role = role;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -23,6 +24,7 @@ public class User extends Model {
         public User(String username, String password, boolean role, String name, String email, String phoneNumber) {
         this.username = username;
         this.password = password;
+        this.role = role;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
