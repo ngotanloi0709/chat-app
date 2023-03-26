@@ -20,7 +20,6 @@ public class Message extends Model {
     public Message(String username, String content, String key) {
         this.username = username;
         this.content = content;
-        this.date_created = date_created;
         this.key = key;
     }
     

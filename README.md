@@ -3,8 +3,7 @@
 ### This project is made as the final report for the Course "Computer Network Programming" at Ton Duc Thang University
 ## __Technique__
 - Multithread programming
-- TCP/IP Socket (Local network)
-- FTP (Local Network)
+- TCP/IP Socket (Local Network)
 - AES Encryption
 - Database (MySQL)
 - JavaSwing GUI
@@ -24,7 +23,7 @@
 
 ## __Contributors__
 ### Ngo Tan Loi (ngotanloi0709@gmail.com)
-### Le Vu Phuong Quang
+### Le Vu Phuong Quang (ql7769663@gmail.com)
 # __Installation__
 ### This project requires below technologies to implement:
 - MySQL 8

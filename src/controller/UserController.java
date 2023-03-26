@@ -77,7 +77,7 @@ public class UserController {
     }
     
     public static boolean isOnline(String username) {
-        for (ClientController i : ClientController.clientHandlers) {
+        for (ClientController i : ClientController.clientAcceptedList) {
             if (i.username.equals(username)) {
                 return true;
             }
