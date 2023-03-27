@@ -273,7 +273,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 if (user != null) {
                     lb_login_result.setText("Login Successfully");
                     setVisible(false);
-                    System.out.println(user.getRole());
                     SwingUtilities.invokeLater(() -> new MainFrame(new Client(user.getUsername()), user.getRole()));
                 }
             
