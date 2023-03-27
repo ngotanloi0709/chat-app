@@ -33,11 +33,13 @@ public class MessageController {
     
     public static String messageDecrypt(String message) {
         String[] parts = message.split("---");
-        System.out.println(parts.length);
+        
         if (parts.length == 4) {
-            return parts[0] + " " + parts[1] + " " + AESEncryptor.decrypt(parts[2], parts[3]);
+            String content = AESEncryptor.decrypt(parts[2], parts[3]);
+            return parts[0] + " " + parts[1] + " " + AESEncryptor.decrypt(parts[2], parts[3]) + "[" + content.length() + "]";
         } else if (parts.length == 3) {
-            return parts[0] + " " + parts[1] + " " + AESEncryptor.decrypt(parts[2], "");
+            String content = AESEncryptor.decrypt(parts[2], "");
+            return parts[0] + " " + parts[1] + " " + content + " [" + content.length() + "]";
         } else {
             return message;
         }
