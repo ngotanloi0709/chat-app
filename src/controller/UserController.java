@@ -55,8 +55,6 @@ public class UserController {
 
     public static boolean createUser(String username ,String password, boolean role, String name, String email, String phoneNumber) {
         try {
-            Repository user_repository = new UserRepository();
-        
             return user_repository.create(new User(username, password, role, name, email, phoneNumber));
         } catch (Exception e) {
             return false;
