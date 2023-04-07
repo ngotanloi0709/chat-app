@@ -1,32 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author NgTnLoi
- */
 public class Message extends Model {
     private int id = -1;
-    private String username = "Unknown";
+    private String username = "";
     private String content = "";
+    private String key = "";
 
     public Message() {
     }
 
-    public Message(int id, String username, String content, String date_created) {
+    public Message(int id, String username, String content, String key, String date_created) {
         this.id = id;
         this.username = username;
         this.content = content;
+        this.key = key;
         this.date_created = date_created;
     }
     
-    public Message(String username, String content) {
+    public Message(String username, String content, String key) {
         this.username = username;
         this.content = content;
-        this.date_created = date_created;
+        this.key = key;
     }
     
     public int getId() {
@@ -53,12 +47,24 @@ public class Message extends Model {
         this.content = content;
     }
     
+    public String getKey() {
+        return this.key;
+    }
+    
+    public void setKey(String key) {
+        this.key = key;
+    }
+    
     public String messageShow() {
-        return "> [" + date_created + "] " + username + ": " + content;
+        return "[" + date_created + "] " + username + ": " + content;
+    }
+    
+    public String messageEncryptShow() {
+        return "[" + date_created + "]---" + username + ":---" + content + "---" + key;
     }
     
     @Override
     public String toString() {
-        return "'" + username + "','" + content + "','" + date_created + "'";
+        return "'" + username + "','" + content + "','" + this.key + "','" + date_created + "'";
     }
 }

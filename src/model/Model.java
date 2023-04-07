@@ -1,7 +1,3 @@
-/**
- *
- * @author NgTnLoi
- */
 package model;
 
 import java.time.LocalDateTime;

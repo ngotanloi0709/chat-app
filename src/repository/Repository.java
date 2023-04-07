@@ -1,7 +1,3 @@
-/**
- *
- * @author NgTnLoi
- */
 package repository;
 
 import core.Database;
@@ -57,7 +53,7 @@ public abstract class Repository <T> extends Database {
     
     public boolean create(T object) {
         try {
-            return this.executeUpdate("INSERT INTO " + table + "("+ order +") VALUES(" + object.toString() +")");
+            return this.executeUpdate("INSERT INTO " + table + "(" + order + ") VALUES(" + object.toString() +")");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -67,6 +63,15 @@ public abstract class Repository <T> extends Database {
     public boolean remove() {
         try {
             return this.executeUpdate("DELETE FROM " + table);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean removeByKey(String value) {
+        try {
+            return this.executeUpdate("DELETE FROM " + table + " WHERE " + key + "='" + value + "'");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
