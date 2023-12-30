@@ -28,7 +28,6 @@ This project is made as the final report for the Course "Computer Network Progra
 This project requires below technologies to implement:
 - MySQL 8
 - Netbean 16 (JDK 19) (Other IDE such as IntelliJ)
-- Git 2.39.2
 
 ## __Setup__
 - Clone this repository
