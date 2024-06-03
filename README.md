@@ -1,6 +1,6 @@
 # __Introduction__
 ## __About__
-This project is made as the final report for the Course "Computer Network Programming" at Ton Duc Thang University
+This project is a secure, local-network chat application with file sharing capabilities. It uses strong encryption to protect messages and allows administrators to manage user information. Built with Java, it leverages multithreading for efficient performance and a MySQL database for storing chat logs. It's made as the final report for the Course "Computer Network Programming" at Ton Duc Thang University
 ## __Technique__
 - Multithread programming
 - TCP/IP Socket (Local Network)
@@ -38,10 +38,6 @@ This project requires below technologies to implement:
 - Run the `ServerInitialize.java` to start the Server
 - Run the `App.java` to start a client
 
-## __Optional__
-- Flatlaf Dark Theme
-- Jetbrain Mono Font
-
 ## __Program's workflow__
 `ServerInitialize.java` turn on the Server to accept the Client Socket, also create a Client represent to it's own
 `App.java` turn on a Client each time it's started. The client search for Server Socket constantly and automatically. 
@@ -53,7 +49,3 @@ This project requires below technologies to implement:
 - Witt Code - "Java Socket Programming - Send and Download Files Between Client and Server" - (https://youtu.be/GLrlwwyd1gY)
 - Witt Code - "Java Socket Programming - Multiple Clients Chat" - (https://www.youtube.com/watch?v=gLfuZrrfKes)
 - Coding with John - "Multithreading in Java Explained in 10 Minutes" - (https://www.youtube.com/watch?v=r_MbozD32eo)
-- ChatGPT
-
-
-
